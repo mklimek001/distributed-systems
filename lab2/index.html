@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Restaurant app</title>
+</head>
+<body>
+
+    <div class="container">
+        <br>
+        <h1>Restaurant menu</h1>
+        <br>
+
+        <form onsubmit="return render_dishes(Event)" method="get">
+            <label for="category">Choose category from the list:</label>
+            <input list="categories" name="category" id="category" required>
+            <datalist id="categories"></datalist>
+            <br><br>
+            <label for="ingredient">Forbidden ingredient:</label>
+            <input type="text" id="ingredient" name="ingredient">
+            <br><br>
+            <input type="submit">
+            <br><br>
+        </form>
+    </div>
+
+    <div class="container">
+        <div id="dishes" class="row">
+
+        </div>
+    </div>
+
+
+
+
+    <script>
+        var categories_list = document.getElementById('categories')
+        var categories = []
+        var dishes_list = document.getElementById('dishes')
+        
+
+        function render_dishes(){
+            dishes_list.innerHTML = ''
+            var category = document.getElementById('category').value;
+            document.getElementById('category').value = ''
+
+            var ingredient = document.getElementById('ingredient').value;
+            document.getElementById('ingredient').value = ''
+
+
+            console.log(category)
+            console.log(ingredient)
+
+            var url_end= ''
+
+            if(ingredient == ""){
+                url_end = 'menu?category=' + category
+                dishes_list.innerHTML += '<h2> Dishes from category "' + category + '"</h2>'
+                
+            }else{
+                url_end = 'menu?category=' + category + '&ingredient=' + ingredient
+                dishes_list.innerHTML += '<h2> Dishes from category "' + category + '" without ' + ingredient + '</h2>'
+            }
+
+            fetchDishes(url_end)
+
+            return false
+        }
+
+        async function fetchCategries() {
+            let response = await fetch('https://restaurant-api-distributed-systems.onrender.com/categories');
+
+            console.log(response.status);
+            console.log(response.statusText); 
+
+            if (response.status === 200) {
+                let data = await response.json();
+                console.log(data)
+                var categories = data['categories']
+                for(const category of categories) {
+                    console.log(category)
+                    categories_list.innerHTML += '<option value="' + category + '">'          
+                }
+                
+            }
+        }
+
+
+        async function fetchDishes(address) {
+            url = 'https://restaurant-api-distributed-systems.onrender.com/' + address
+            let response = await fetch(url);
+
+            console.log(response.status);
+            console.log(response.statusText); 
+
+            if (response.status === 200) {
+                let data = await response.json();
+                console.log(data)
+                
+                var dishes = data['dishes']
+                dishes_list.innerHTML += '<h4>' + data['count'] + ' positions: </h4><br>'
+                
+                for(const dish of dishes) {
+                    dishes_list.innerHTML += '<div class="col-sm"> ' 
+                        + '<img src="' + dish['img'] + '" alt="Dish image" width="100" height="100">'
+                        + '<p>' + dish['name'] + '</p>'
+                    '</div>'          
+                }
+
+
+                               
+            }
+        }
+
+
+        fetchCategries();       
+
+
+    </script>
+</body>
+</html>
