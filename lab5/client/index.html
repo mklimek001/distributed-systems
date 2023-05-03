@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>gRPC-Web</title>
+  </head>
+  <body>
+    <div class="container mt-5"> 
+        <h1>Primes service created with gRPC-Web </h1>
+        <form class="row g-3 mt-3">
+            <div class="col-auto">
+            <label for="staticEmail2">Number of primes lower than </label>
+            </div>
+            <div class="col-auto">
+            <input type="text" class="form-control" id="prim-cnt-input">
+            </div>
+            <div class="col-auto">
+            <button type="button" class="btn btn-primary mb-3" id="prim-cnt-button">Find</button>
+            </div>
+        </form>
+
+        <form class="row g-3 mt-3">
+          <div class="col-auto">
+          <label for="staticEmail2">Highest prime lower than </label>
+          </div>
+          <div class="col-auto">
+          <input type="text" class="form-control" id="prim-max-input">
+          </div>
+          <div class="col-auto">
+          <button type="button" class="btn btn-primary mb-3" id="prim-max-button">Find</button>
+          </div>
+      </form>
+
+        <form class="row g-3 mt-3">
+            <div class="col-auto">
+            <label for="staticEmail2" > Stream of primes lower than </label>
+            </div>
+            <div class="col-auto">
+            <input type="text" class="form-control" id="primes-stream-input">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary mb-3" id="primes-stream-run">Find</button>
+                <button type="button" class="btn btn-danger mb-3" id="primes-stream-stop">Stop</button>
+            </div>
+        </form>        
+        <div id="primes-playground">
+
+        </div>    
+    </div> 
+
+    <script src="./client_bundle.js"></script>
+    
+  </body>
+</html>

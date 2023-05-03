@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package Primes;
+
+option java_multiple_files = true;
+option java_package = "gen.primes";
+option java_outer_classname = "PrimesProto";
+
+message SingleNumberRequest{
+    int32 number = 1;
+}
+
+message SingleNumberResponse{
+    int64 number = 1;
+}
+
+message Prime{
+    int32 number = 1;
+    double percent = 2;
+    int64 value = 3;
+}
+
+service EratosthenesSieve{
+
+    rpc numberOfPrimes(SingleNumberRequest) returns (SingleNumberResponse);
+
+    rpc highestPrime(SingleNumberRequest) returns (SingleNumberResponse);
+
+    rpc allPrimes(SingleNumberRequest) returns (Prime);
+}
+
