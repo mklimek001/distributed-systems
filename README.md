@@ -7,3 +7,4 @@ Repository for Distributed Systems classes at AGH UST
 * lab4 - Ice RPC smart home
 * lab5 - web-grpc
 * lab6 - RabbitMQ
+* lab7 - ZooKeeper
